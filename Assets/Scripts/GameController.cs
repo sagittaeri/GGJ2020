@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour
     public List<CutsceneSubtitle> outroCutscene;
 
     public List<AudioSource> audioSources;
+    public List<AudioSource> sfxSources;
     public Color initialTint;
 
     public Text subtitleText;
@@ -54,6 +55,14 @@ public class GameController : MonoBehaviour
     Vector3 initialSupervisorPos;
     Vector3 initialManuscriptPos;
     Action cutsceneCallback;
+
+    private int currentSoundIndex;
+    static public GameController instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -109,6 +118,19 @@ public class GameController : MonoBehaviour
         //}
     }
 
+    static public void PlaySound(AudioClip clip)
+    {
+        if (clip == null)
+            return;
+
+        AudioSource source = instance.sfxSources[instance.currentSoundIndex];
+        instance.currentSoundIndex = (instance.currentSoundIndex + 1) % instance.sfxSources.Count;
+        if (source.isPlaying)
+            source.Stop();
+        source.clip = clip;
+        source.Play();
+    }
+
     IEnumerator RunCutscene(AudioClip clip, List<CutsceneSubtitle> subtitles, Action callback)
     {
         cutsceneCallback = callback;
@@ -157,6 +179,24 @@ public class GameController : MonoBehaviour
         };
 
         StartCoroutine(RunCutscene(introAudio, introCutscene, startGame));
+    }
+
+    public void OutroCutscene()
+    {
+        supervisor.transform.DOLocalMove(supervisor.transform.localPosition + Vector3.right * 200f, 0.5f);
+        manuscript.transform.DOLocalMove(manuscript.transform.localPosition + Vector3.left * 500f, 0.5f);
+
+        Action endGame = () =>
+        {
+            background.DOColor(Color.black, 2f).OnComplete(() =>
+            {
+                Application.Quit();
+            });
+        };
+        background.DOColor(initialTint, 2f).OnComplete(() =>
+        {
+            StartCoroutine(RunCutscene(outroAudio, outroCutscene, endGame));
+        });
     }
 
     public void SelectPhrase(Phrase selectedPhrase)
@@ -284,6 +324,7 @@ public class GameController : MonoBehaviour
         // Remove the old doc. Skip this if it is the first doc
         if (docStage == 1)
         {
+            GetComponent<Supervisor>().InitSupervisor();
             activeDocument = evidenceDocs[0];
             activeDocument.ShowDoc(new Vector2( gameCanvasRect.sizeDelta.x / 4, 0));
         }

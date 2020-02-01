@@ -820,7 +820,8 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1880994153}
   m_Father: {fileID: 986046838}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2342,7 +2343,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.55, y: 15.52}
+  m_AnchoredPosition: {x: 0.55, y: 10.6}
   m_SizeDelta: {x: 159.39, y: 130.15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &669392952
@@ -2358,13 +2359,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 166632138}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
-  m_Elasticity: 0.1
+  m_Elasticity: 0.05
   m_Inertia: 1
-  m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_DecelerationRate: 0.5
+  m_ScrollSensitivity: 3
   m_Viewport: {fileID: 986046838}
   m_HorizontalScrollbar: {fileID: 962829347}
   m_VerticalScrollbar: {fileID: 888458574}
@@ -2748,8 +2749,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 314.67, y: -135.37}
-  m_SizeDelta: {x: -629.34, y: -270.75}
+  m_AnchoredPosition: {x: 314.67, y: -143.05}
+  m_SizeDelta: {x: -629.34, y: -286.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &763690111
 MonoBehaviour:
@@ -3070,7 +3071,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 0}
+  m_SizeDelta: {x: 8, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &888458574
 MonoBehaviour:
@@ -3114,7 +3115,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 860690253}
   m_HandleRect: {fileID: 860690252}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3297,7 +3298,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 20}
+  m_SizeDelta: {x: 0, y: 8}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &962829347
 MonoBehaviour:
@@ -3846,10 +3847,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   supervisorProgressionMessages:
-  - Hello. You need to find the matching evidence.
-  - Great work. Here's doc 2
-  - "A real investigator! Look at doc 3\t\t"
-  - Now... pick the correct phrases!
+  - <b>Ari:</b> Not sure if you were watching channel 69's... "documentaries" again.
+  - <b>Ari:</b> Relating to that 4040 Gran Pox special, Document Dave found an old
+    court hearing he thinks doesn't add up.
+  - <b>Ari:</b> Could you check over that and make sure he's not having another stomach
+    ache?
+  - <b>You:</b> On it.
+  supervisorProgressionMessages2:
+  - <b>You:</b> Document Dave?
+  - <b>You:</b> I need whatever you can find on a Julienne Blanchette, year 4040.
+  - <b>David:</b> The actress?
+  - <b>David:</b> Uh... sure... I'll send up records.
+  - "<b>David:</b> You probably don't want to be buried under all of her posters.\t\t"
+  - <b>You:</b> Thanks. I appreciate that.
+  supervisorProgressionMessages3: []
+  supervisorProgressionMessages4: []
   supervisorExtraMessages:
   - Do you want a coffee? Tim's going for a run. (Or is it Tom? I never remember)
   - "Nice weather outside\t"
@@ -3890,6 +3902,7 @@ MonoBehaviour:
   - {fileID: 2045627815}
   - {fileID: 2079581176}
   - {fileID: 559589799}
+  sfxSources:
   - {fileID: 1545984074}
   - {fileID: 107592553}
   - {fileID: 1176992209}
@@ -6469,6 +6482,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1833939810}
   m_CullTransparentMesh: 0
+--- !u!1 &1880994152
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1880994153}
+  m_Layer: 5
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1880994153
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880994152}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 166632138}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1897600533
 GameObject:
   m_ObjectHideFlags: 0
@@ -6991,8 +7039,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -68.8}
-  m_SizeDelta: {x: 160, y: 30.52}
+  m_AnchoredPosition: {x: 0, y: -68.1}
+  m_SizeDelta: {x: 160, y: 19.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2025547049
 MonoBehaviour:
@@ -7001,7 +7049,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2025547047}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d199490a83bb2b844b9695cbf13b01ef, type: 3}
   m_Name: 
