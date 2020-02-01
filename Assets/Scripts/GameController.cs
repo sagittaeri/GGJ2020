@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,7 +7,22 @@ using DG.Tweening;
 
 public class GameController : MonoBehaviour
 {
+    [Serializable]
+    public class CutsceneSubtitle
+    {
+        public float time;
+        public string text;
+    }
 
+    public AudioClip introAudio;
+    public List<CutsceneSubtitle> introCutscene;
+    public AudioClip outroAudio;
+    public List<CutsceneSubtitle> outroCutscene;
+
+    public List<AudioSource> audioSources;
+    public Color initialTint;
+
+    public Text subtitleText;
     public Transform selectedUI;
     public UIDropZone selectedUIDropZone;
 
@@ -29,25 +45,34 @@ public class GameController : MonoBehaviour
     // For Stage 2 of the game
     public Transform stage2phraseCanvas;
     int stage2examinedBriefPhrase;
+    Image background;
+    Image supervisor;
     UIDocument manuscript;
     BriefPhrase examinedBriefPhrase; // The phrase the player is choosing the 'true' fact for
     List<Phrase> foundPhrases = new List<Phrase>(); // The matching phrases that will be moved on screen. 
 
-
+    Vector3 initialSupervisorPos;
+    Vector3 initialManuscriptPos;
 
     // Start is called before the first frame update
     void Start()
     {
         stage2phraseCanvas.gameObject.SetActive(false);
+        background = GameObject.Find("CanvasBackground").GetComponent<Image>();
+        supervisor = GameObject.Find("SupervisorChat").GetComponent<Image>();
         manuscript = GameObject.Find("Manuscript").GetComponent<UIDocument>();
+        subtitleText = GameObject.Find("SubtitleText").GetComponent<Text>();
         gameCanvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
+
+        initialSupervisorPos = supervisor.transform.localPosition;
+        initialManuscriptPos = manuscript.transform.localPosition;
 
         print(gameCanvasRect.sizeDelta);
         print(Screen.width + " x " + Screen.height);
 
         canvasScaleRatio = Screen.width / gameCanvasRect.sizeDelta.x;
-
-        NewDocOnScreen();
+       
+        IntroCutscene();
     }
 
     // Update is called once per frame
@@ -67,6 +92,52 @@ public class GameController : MonoBehaviour
         //    transform.position = Vector3.Lerp(transform.position, idlePos, Time.deltaTime / 10);
         //    transform.localScale = Vector3.Lerp(transform.localScale, idleScale, Time.deltaTime / 10);
         //}
+    }
+
+    IEnumerator RunCutscene(AudioClip clip, List<CutsceneSubtitle> subtitles, Action callback)
+    {
+        audioSources[0].clip = clip;
+        audioSources[0].Play();
+        
+        List<CutsceneSubtitle> subs = new List<CutsceneSubtitle>(subtitles);
+        while (subs.Count > 0)
+        {
+            CutsceneSubtitle sub = subs[0];
+            float currentTime = audioSources[0].time;
+            if (currentTime >= sub.time)
+            {
+                subtitleText.text = sub.text;
+                subs.Remove(sub);
+            }
+            yield return null;
+        }
+
+        while (audioSources[0].isPlaying)
+        {
+            yield return null;
+        }
+        subtitleText.text = "";
+        callback();
+        yield return null;
+    }
+
+    public void IntroCutscene()
+    {
+        background.color = initialTint;
+        supervisor.transform.localPosition += Vector3.right * 200f;
+        manuscript.transform.localPosition += Vector3.left * 500f;
+
+        Action startGame = () =>
+        {
+            background.DOColor(Color.white, 2f).OnComplete(() =>
+            {
+                supervisor.transform.DOLocalMove(initialSupervisorPos, 0.5f);
+                manuscript.transform.DOLocalMove(initialManuscriptPos, 0.5f);
+                NewDocOnScreen();
+            });
+        };
+
+        StartCoroutine(RunCutscene(introAudio, introCutscene, startGame));
     }
 
     public void SelectPhrase(Phrase selectedPhrase)
