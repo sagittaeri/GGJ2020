@@ -38,7 +38,7 @@ public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        if (!isSelected)
+        if (!isSelected && !playerCorrectlyMatched)
         {
             //transform.localScale = Vector3.one * 1.1f;
             transform.DOScale(1.1f, 0.3f);
@@ -47,7 +47,7 @@ public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
     public void OnPointerExit (PointerEventData pointerEventData)
     {
-        if (!isSelected)
+        if (!isSelected && !playerCorrectlyMatched)
         {
             //transform.localScale = Vector3.one;
             transform.DOScale(1f, 0.3f);
@@ -56,10 +56,9 @@ public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        isSelected = !isSelected;
-
         if (!playerCorrectlyMatched)
         {
+            isSelected = !isSelected;
             Highlight();
             GC.SelectPhrase(this);
         }
@@ -71,9 +70,9 @@ public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         transform.DOScale(1.5f, 0.3f);
     }
 
-    public void ReturnToNormal(bool isMatched)
+    public void ReturnToNormal(bool isMatched, bool forceReset=false)
     {
-        if (playerCorrectlyMatched)
+        if (playerCorrectlyMatched && !forceReset)
             return;
 
         isSelected = false;
@@ -87,6 +86,9 @@ public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
             playerCorrectlyMatched = true;
         } else
             GetComponent<Image>().DOColor(Color.white, 0.3f);
+
+        if (forceReset)
+            playerCorrectlyMatched = isMatched;
     }
     
 }

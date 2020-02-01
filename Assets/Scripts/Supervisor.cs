@@ -18,6 +18,11 @@ public class Supervisor : MonoBehaviour
     public GameObject textMessagePrefab;
     public InputField playerInput;
     public ScrollRect scrollRect;
+    public Image scrollBackground;
+    public Color normalColor;
+    public Color notifyColor;
+
+    Vector3 originalPos;
 
     int progMessage;
     int extraMessage;
@@ -25,6 +30,8 @@ public class Supervisor : MonoBehaviour
     public void Awake()
     {
         scrollRect = scrollContentTransform.GetComponentInParent<ScrollRect>();
+        scrollBackground = scrollRect.GetComponent<Image>();
+        originalPos = scrollBackground.transform.parent.localPosition;
     }
 
     public void Start()
@@ -43,6 +50,30 @@ public class Supervisor : MonoBehaviour
             supervisorProgressionMessages[progMessage];
         scrollRect.DOVerticalNormalizedPos(0f, 3f, true);
 
+        scrollBackground.DOKill(true);
+        scrollBackground.DOColor(notifyColor, 0.2f).OnComplete(()=>
+        {
+            scrollBackground.DOColor(normalColor, 0.2f).OnComplete(() =>
+            {
+                scrollBackground.DOColor(notifyColor, 0.2f).SetDelay(0.3f).OnComplete(() =>
+                {
+                    scrollBackground.DOColor(normalColor, 0.2f);
+                });
+            });
+        });
+
+        scrollBackground.transform.parent.DOKill(true);
+        scrollBackground.transform.parent.DOLocalMoveY(originalPos.y + 20f, 0.2f).OnComplete(() =>
+        {
+            scrollBackground.transform.parent.DOLocalMoveY(originalPos.y, 0.2f).OnComplete(()=>
+            {
+                scrollBackground.transform.parent.DOLocalMoveY(originalPos.y + 20f, 0.2f).OnComplete(() =>
+                {
+                    scrollBackground.transform.parent.DOLocalMoveY(originalPos.y, 0.2f);
+                });
+            });
+        });
+
         progMessage++;
     }
 
@@ -58,6 +89,8 @@ public class Supervisor : MonoBehaviour
     public void NewExtraMessage()
     {
         print("New Extra Message");
+        if (extraMessage >= supervisorExtraMessages.Count)
+            return;
         GameObject newText = Instantiate(textMessagePrefab, scrollContentTransform);
         newText.GetComponent<Text>().text = System.DateTime.Now.Hour + ":" + System.DateTime.Now.Minute + "   " + 
             supervisorExtraMessages[extraMessage];

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameController : MonoBehaviour
 {
@@ -75,9 +76,7 @@ public class GameController : MonoBehaviour
             // Pick or cycle the Brief Phrase
             if (briefPhraseSelected == null)
             {
-                {
-                    briefPhraseSelected = selectedPhrase as BriefPhrase;
-                }
+                briefPhraseSelected = selectedPhrase as BriefPhrase;
             }
             else if (briefPhraseSelected == selectedPhrase as BriefPhrase)
             {
@@ -99,9 +98,7 @@ public class GameController : MonoBehaviour
             // Pick or cycle the Brief Phrase
             if (phraseSelected == null)
             {
-                {
-                    phraseSelected = selectedPhrase;
-                }
+                phraseSelected = selectedPhrase;
             }
 
             else if (phraseSelected == selectedPhrase)
@@ -138,7 +135,7 @@ public class GameController : MonoBehaviour
             if (briefPhraseSelected.conflictingPhrases.Contains(phraseSelected))
             {
                 // Match works! 
-                briefPhraseSelected.ReturnToNormal(false);
+                briefPhraseSelected.ReturnToNormal(true);
                 phraseSelected.ReturnToNormal(true);
                 print("A match!");
             }
@@ -170,18 +167,32 @@ public class GameController : MonoBehaviour
     {
         print("Doc complete");
         GetComponent<Supervisor>().NewProgressionMessage();
-        NewDocOnScreen();
+
+        DOVirtual.DelayedCall(3f, () =>
+        {
+            NewDocOnScreen();
+        });
     }
 
 
 
     void NewDocOnScreen()
     {
+        docStage++;
+
+        manuscript.ResetPhrases(true);
+
         if (docStage == 3) // No more new docs! time for Stage 2
-            Stage2();
+        {
+            activeDocument.HideDoc();
+            manuscript.GetComponent<RectTransform>().DOAnchorPos(Vector3.zero, 0.5f).SetDelay(1f);
+            manuscript.transform.DOScale(Vector3.one, 0.5f).SetDelay(1f);
+            DOVirtual.DelayedCall(1.5f, Stage2);
+            return;
+        }
 
         // Remove the old doc. Skip this if it is the first doc
-        if (docStage == 0)
+        if (docStage == 1)
         {
             activeDocument = evidenceDocs[0];
             activeDocument.ShowDoc(new Vector2( gameCanvasRect.sizeDelta.x / 4, 0));
@@ -189,13 +200,15 @@ public class GameController : MonoBehaviour
         else
         {
             activeDocument.HideDoc();
+            activeDocument.ResetPhrases();
             // increase the doc stage
             // show the new doc
-            activeDocument = evidenceDocs[docStage];
-            activeDocument.ShowDoc(new Vector2(gameCanvasRect.sizeDelta.x / 4, 0));
-
+            DOVirtual.DelayedCall(1f, () =>
+            {
+                activeDocument = evidenceDocs[docStage];
+                activeDocument.ShowDoc(new Vector2(gameCanvasRect.sizeDelta.x / 4, 0));
+            });
         }
-            docStage++;
     }
 
 

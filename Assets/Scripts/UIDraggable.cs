@@ -21,25 +21,25 @@ public class UIDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public void OnBeginDrag(PointerEventData _EventData)
     {
         Debug.Log("OnBeginDrag");
-        transform.SetParent(GC.gameCanvasRect);
+        //transform.SetParent(GC.gameCanvasRect);
     }
 
     public void OnDrag(PointerEventData _EventData)
     {
         Debug.Log("OnDrag");
-        transform.position = Input.mousePosition;
+        //transform.position = Input.mousePosition;
     }
 
     public void OnEndDrag(PointerEventData _EventData)
     {
         Debug.Log("OnEndDrag");
 
-        if (GC.selectedUIDropZone != null)
-        {
-            GC.selectedUIDropZone.TryDropHere(this);
-        }
+        //if (GC.selectedUIDropZone != null)
+        //{
+        //    GC.selectedUIDropZone.TryDropHere(this);
+        //}
 
-        transform.SetParent(originalParent);
+        //transform.SetParent(originalParent);
 
     }
 }

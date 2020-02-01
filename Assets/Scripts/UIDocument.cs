@@ -16,6 +16,8 @@ public class UIDocument : MonoBehaviour
 
     [HideInInspector]
     public List<Phrase> matchablePhrases = new List<Phrase>();
+    [HideInInspector]
+    public List<BriefPhrase> briefPhrases = new List<BriefPhrase>();
 
 
     public void Start()
@@ -27,6 +29,11 @@ public class UIDocument : MonoBehaviour
         {
             if (p.matchingPhrase != null)
                 matchablePhrases.Add(p);
+        }
+
+        foreach (BriefPhrase p in GetComponentsInChildren<BriefPhrase>())
+        {
+            briefPhrases.Add(p);
         }
 
     }
@@ -47,6 +54,19 @@ public class UIDocument : MonoBehaviour
     {
         //transform.GetComponent<RectTransform>().anchoredPosition = offscreenPos;
         transform.GetComponent<RectTransform>().DOAnchorPos(offscreenPos, 0.3f, true);
+    }
+
+    public void ResetPhrases(bool forceReset=false)
+    {
+        foreach (Phrase p in matchablePhrases)
+        {
+            p.ReturnToNormal(false, forceReset);
+        }
+
+        foreach (Phrase p in briefPhrases)
+        {
+            p.ReturnToNormal(false, forceReset);
+        }
     }
 
 }
