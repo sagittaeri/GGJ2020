@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class Supervisor : MonoBehaviour
 {
@@ -16,9 +17,15 @@ public class Supervisor : MonoBehaviour
     public Transform scrollContentTransform;
     public GameObject textMessagePrefab;
     public InputField playerInput;
+    public ScrollRect scrollRect;
 
     int progMessage;
     int extraMessage;
+
+    public void Awake()
+    {
+        scrollRect = scrollContentTransform.GetComponentInParent<ScrollRect>();
+    }
 
     public void Start()
     {
@@ -34,6 +41,7 @@ public class Supervisor : MonoBehaviour
         GameObject newText = Instantiate(textMessagePrefab, scrollContentTransform);
         newText.GetComponent<Text>().text = System.DateTime.Now.Hour + ":" + System.DateTime.Now.Minute + "   " +
             supervisorProgressionMessages[progMessage];
+        scrollRect.DOVerticalNormalizedPos(0f, 3f, true);
 
         progMessage++;
     }
@@ -53,6 +61,7 @@ public class Supervisor : MonoBehaviour
         GameObject newText = Instantiate(textMessagePrefab, scrollContentTransform);
         newText.GetComponent<Text>().text = System.DateTime.Now.Hour + ":" + System.DateTime.Now.Minute + "   " + 
             supervisorExtraMessages[extraMessage];
+        scrollRect.DOVerticalNormalizedPos(0f, 3f, true);
 
         extraMessage++;
 

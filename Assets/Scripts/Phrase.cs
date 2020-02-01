@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -14,7 +15,8 @@ public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
     GameController GC;
 
-    bool isSelected;
+    [HideInInspector]
+    public bool isSelected;
 
     [HideInInspector]
     public bool playerCorrectlyMatched;
@@ -37,13 +39,19 @@ public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
         if (!isSelected)
-            transform.localScale = Vector3.one * 1.1f;
+        {
+            //transform.localScale = Vector3.one * 1.1f;
+            transform.DOScale(1.1f, 0.3f);
+        }
     }
 
     public void OnPointerExit (PointerEventData pointerEventData)
     {
         if (!isSelected)
-            transform.localScale = Vector3.one;
+        {
+            //transform.localScale = Vector3.one;
+            transform.DOScale(1f, 0.3f);
+        }
     }
 
     public void OnPointerClick(PointerEventData pointerEventData)
@@ -59,8 +67,8 @@ public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
     public void Highlight()
     {
-        GetComponent<Image>().color = Color.yellow;
-        transform.localScale = Vector3.one * 1.5f;
+        GetComponent<Image>().DOColor(Color.yellow, 0.3f);
+        transform.DOScale(1.5f, 0.3f);
     }
 
     public void ReturnToNormal(bool isMatched)
@@ -68,15 +76,17 @@ public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         if (playerCorrectlyMatched)
             return;
 
+        isSelected = false;
 
-        transform.localScale = Vector3.one;
+        //transform.localScale = Vector3.one;
+        transform.DOScale(1f, 0.3f);
 
         if (isMatched)
         {
-            GetComponent<Image>().color = Color.green;
+            GetComponent<Image>().DOColor(Color.green, 0.3f);
             playerCorrectlyMatched = true;
         } else
-            GetComponent<Image>().color = Color.white;
+            GetComponent<Image>().DOColor(Color.white, 0.3f);
     }
     
 }

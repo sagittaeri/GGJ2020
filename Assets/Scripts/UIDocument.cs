@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIDocument : MonoBehaviour
 {
@@ -38,12 +39,14 @@ public class UIDocument : MonoBehaviour
     public void ShowDoc(Vector2 onScreenPos)
     {
         print(GetComponent<RectTransform>().name);
-        transform.GetComponent<RectTransform>().anchoredPosition = onScreenPos;
+        //transform.GetComponent<RectTransform>().anchoredPosition = onScreenPos;
+        transform.GetComponent<RectTransform>().DOAnchorPos(onScreenPos, 0.3f, true);
     }
 
     public void HideDoc()
     {
-        transform.GetComponent<RectTransform>().anchoredPosition = offscreenPos;
+        //transform.GetComponent<RectTransform>().anchoredPosition = offscreenPos;
+        transform.GetComponent<RectTransform>().DOAnchorPos(offscreenPos, 0.3f, true);
     }
 
 }
