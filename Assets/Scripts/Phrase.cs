@@ -30,7 +30,8 @@ public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
 
         // Link the Phrase with it's matching BriefPhrase
-        matchingPhrase.conflictingPhrases.Add(this);
+        if (matchingPhrase != null)
+            matchingPhrase.conflictingPhrases.Add(this);
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
@@ -51,8 +52,8 @@ public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
         if (!playerCorrectlyMatched)
         {
-        Highlight();
-        GC.SelectPhrase(this);
+            Highlight();
+            GC.SelectPhrase(this);
         }
     }
 
@@ -64,15 +65,18 @@ public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
     public void ReturnToNormal(bool isMatched)
     {
+        if (playerCorrectlyMatched)
+            return;
+
+
         transform.localScale = Vector3.one;
 
         if (isMatched)
         {
             GetComponent<Image>().color = Color.green;
             playerCorrectlyMatched = true;
-        }else
+        } else
             GetComponent<Image>().color = Color.white;
-        { }
     }
-
+    
 }

@@ -164,18 +164,17 @@ public class GameController : MonoBehaviour
         {
             activeDocument = evidenceDocs[0];
             activeDocument.ShowDoc(new Vector2( gameCanvasRect.sizeDelta.x / 4, 0));
-            docStage++;
         }
         else
         {
             activeDocument.HideDoc();
             // increase the doc stage
-            docStage++;
-            activeDocument = evidenceDocs[docStage];
             // show the new doc
+            activeDocument = evidenceDocs[docStage];
             activeDocument.ShowDoc(new Vector2(gameCanvasRect.sizeDelta.x / 4, 0));
 
         }
+            docStage++;
     }
 
 

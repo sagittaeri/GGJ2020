@@ -13,6 +13,7 @@ public class BriefPhrase : Phrase
     {
         base.Start();
         isBriefPhrase = true;
+        print("is brief phrase?" + isBriefPhrase);
     }
 
     
