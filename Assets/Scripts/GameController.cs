@@ -53,6 +53,7 @@ public class GameController : MonoBehaviour
 
     Vector3 initialSupervisorPos;
     Vector3 initialManuscriptPos;
+    Action cutsceneCallback;
 
     // Start is called before the first frame update
     void Start()
@@ -78,7 +79,21 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (selectedUI != null) selectedUI.transform.position = Input.mousePosition;
+        if (selectedUI != null)
+            selectedUI.transform.position = Input.mousePosition;
+
+        if (cutsceneCallback != null)
+        {
+            if (Input.GetKeyUp(KeyCode.Escape) || Input.GetMouseButtonUp(0))
+            {
+                StopAllCoroutines();
+                audioSources[0].Stop();
+                subtitleText.text = "";
+                Action temp = cutsceneCallback;
+                cutsceneCallback = null;
+                temp.Invoke();
+            }
+        }
 
 
         // Zoom in / out
@@ -96,6 +111,8 @@ public class GameController : MonoBehaviour
 
     IEnumerator RunCutscene(AudioClip clip, List<CutsceneSubtitle> subtitles, Action callback)
     {
+        cutsceneCallback = callback;
+
         audioSources[0].clip = clip;
         audioSources[0].Play();
         
@@ -117,7 +134,9 @@ public class GameController : MonoBehaviour
             yield return null;
         }
         subtitleText.text = "";
-        callback();
+        Action temp = cutsceneCallback;
+        cutsceneCallback = null;
+        temp?.Invoke();
         yield return null;
     }
 
