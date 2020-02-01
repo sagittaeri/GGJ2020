@@ -2,26 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class UIDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
 
     GameController GC;
+    Transform originalParent;
+    Vector3 originalPos;
 
     void Start()
     {
         GC = FindObjectOfType<GameController>();
+        originalParent = transform.parent;
+        originalPos = transform.position;
     }
 
     public void OnBeginDrag(PointerEventData _EventData)
     {
         Debug.Log("OnBeginDrag");
+        transform.SetParent(GC.gameCanvasRect);
     }
 
     public void OnDrag(PointerEventData _EventData)
     {
         Debug.Log("OnDrag");
-        transform.localPosition = _EventData.position;
+        transform.position = Input.mousePosition;
     }
 
     public void OnEndDrag(PointerEventData _EventData)
@@ -32,5 +38,8 @@ public class UIDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         {
             GC.selectedUIDropZone.TryDropHere(this);
         }
+
+        transform.SetParent(originalParent);
+
     }
 }

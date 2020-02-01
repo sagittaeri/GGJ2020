@@ -41,7 +41,7 @@ public class UIDocument : MonoBehaviour, IPointerClickHandler, IPointerExitHandl
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        GC.TryInspectDoc(this);
+       // GC.TryInspectDoc(this);
     }
 
     public void OnPointerExit (PointerEventData pointerEventData)

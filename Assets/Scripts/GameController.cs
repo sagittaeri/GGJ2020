@@ -12,19 +12,31 @@ public class GameController : MonoBehaviour
     public UIDocument inspected1;
     public UIDocument inspected2;
 
-    RectTransform gameCanvasRect;
+    public BriefPhrase briefPhraseSelected;
+    public Phrase phraseSelected;
+
+
+
+    public RectTransform gameCanvasRect;
+    public float canvasScaleRatio;
 
     // Start is called before the first frame update
     void Start()
     {
         gameCanvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
+
+        print(gameCanvasRect.sizeDelta);
+        print(Screen.width + " x " + Screen.height);
+
+        canvasScaleRatio = Screen.width / gameCanvasRect.sizeDelta.x;
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
         if (selectedUI != null) selectedUI.transform.position = Input.mousePosition;
-
 
 
         // Zoom in / out
@@ -38,6 +50,87 @@ public class GameController : MonoBehaviour
         //    transform.position = Vector3.Lerp(transform.position, idlePos, Time.deltaTime / 10);
         //    transform.localScale = Vector3.Lerp(transform.localScale, idleScale, Time.deltaTime / 10);
         //}
+    }
+
+    public void SelectPhrase(Phrase selectedPhrase)
+    {
+        if (selectedPhrase.isBriefPhrase)
+        {
+            // Pick or cycle the Brief Phrase
+            if (briefPhraseSelected == null)
+            {
+                {
+                    briefPhraseSelected = selectedPhrase as BriefPhrase;
+                }
+            }
+            else if (briefPhraseSelected == selectedPhrase as BriefPhrase)
+            {
+                briefPhraseSelected.ReturnToNormal(false);
+                briefPhraseSelected = null;
+                return;
+            }
+            else
+            {
+                briefPhraseSelected.ReturnToNormal(false);
+                briefPhraseSelected = null;
+                SelectPhrase(selectedPhrase);
+            }
+        }
+
+        // Pick or cycle the evidence/doc Phrase
+        if (!selectedPhrase.isBriefPhrase)
+        {
+            // Pick or cycle the Brief Phrase
+            if (phraseSelected == null)
+            {
+                {
+                    phraseSelected = selectedPhrase;
+                }
+            }
+
+            else if (phraseSelected == selectedPhrase)
+            {
+                phraseSelected.ReturnToNormal(false);
+                phraseSelected = null;
+                return;
+            }
+            else
+            {
+                phraseSelected.ReturnToNormal(false);
+                phraseSelected = null;
+                SelectPhrase(selectedPhrase);
+            }
+
+        }
+
+        if (briefPhraseSelected != null && phraseSelected != null)
+            ComparePhrases();
+
+    }
+
+
+    public void ComparePhrases()
+    {
+        if (briefPhraseSelected != null && phraseSelected != null)
+        {
+            print("Compare!");
+            if (briefPhraseSelected.conflictingPhrases.Contains(phraseSelected))
+            {
+                // Match works! 
+        briefPhraseSelected.ReturnToNormal(false);
+        phraseSelected.ReturnToNormal(true);
+            }
+            else
+            {
+                // not a match
+                briefPhraseSelected.ReturnToNormal(false);
+                phraseSelected.ReturnToNormal(false);
+            }
+        }
+
+        // Return phrases to normal
+        briefPhraseSelected = null;
+        phraseSelected = null;
     }
 
     public void TryInspectDoc(UIDocument uiDoc)
