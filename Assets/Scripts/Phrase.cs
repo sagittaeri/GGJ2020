@@ -9,7 +9,7 @@ public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     [HideInInspector]
     public bool isBriefPhrase;
 
-    public BriefPhrase matchingPhrase;
+    public BriefPhrase matchingPhrase; // Set this on the 'Evidence' Document phrases, not the Manuscript
     public bool isCorrectPhrase;
 
     GameController GC;

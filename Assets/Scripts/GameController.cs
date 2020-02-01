@@ -9,8 +9,8 @@ public class GameController : MonoBehaviour
     public Transform selectedUI;
     public UIDropZone selectedUIDropZone;
 
-    public UIDocument inspected1;
-    public UIDocument inspected2;
+   // public UIDocument inspected1;
+   // public UIDocument inspected2;
 
     public BriefPhrase briefPhraseSelected;
     public Phrase phraseSelected;
@@ -23,9 +23,22 @@ public class GameController : MonoBehaviour
     public RectTransform gameCanvasRect;
     public float canvasScaleRatio;
 
+    int gameStage = 1;
+
+    // For Stage 2 of the game
+    public Transform stage2phraseCanvas;
+    int stage2examinedBriefPhrase;
+    UIDocument manuscript;
+    BriefPhrase examinedBriefPhrase; // The phrase the player is choosing the 'true' fact for
+    List<Phrase> foundPhrases = new List<Phrase>(); // The matching phrases that will be moved on screen. 
+
+
+
     // Start is called before the first frame update
     void Start()
     {
+        stage2phraseCanvas.gameObject.SetActive(false);
+        manuscript = GameObject.Find("Manuscript").GetComponent<UIDocument>();
         gameCanvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
 
         print(gameCanvasRect.sizeDelta);
@@ -57,7 +70,7 @@ public class GameController : MonoBehaviour
 
     public void SelectPhrase(Phrase selectedPhrase)
     {
-        if (selectedPhrase.isBriefPhrase)
+        if (gameStage == 1 && selectedPhrase.isBriefPhrase)
         {
             // Pick or cycle the Brief Phrase
             if (briefPhraseSelected == null)
@@ -107,7 +120,12 @@ public class GameController : MonoBehaviour
         }
 
         if (briefPhraseSelected != null && phraseSelected != null)
-            ComparePhrases();
+        {
+            if (gameStage == 1)
+                ComparePhrases();
+            else if (gameStage == 2)
+                Stage2CompareAnswer();
+        }
 
     }
 
@@ -159,6 +177,9 @@ public class GameController : MonoBehaviour
 
     void NewDocOnScreen()
     {
+        if (docStage == 3) // No more new docs! time for Stage 2
+            Stage2();
+
         // Remove the old doc. Skip this if it is the first doc
         if (docStage == 0)
         {
@@ -175,6 +196,54 @@ public class GameController : MonoBehaviour
 
         }
             docStage++;
+    }
+
+
+    void Stage2() // 2nd phase of the game where the player picks the 'true' statement for each section
+    {
+        gameStage = 2;
+        print("Stage 2 now");
+        stage2phraseCanvas.gameObject.SetActive(true);
+
+    }
+
+    void Stage2NextBriefPhrase()
+    {
+        // Empty the canvas
+        foreach (Transform t in stage2phraseCanvas)
+        {
+            // this isn't working for osme reason
+            t.SetParent(null);
+            t.gameObject.SetActive(false);
+        }
+
+
+        examinedBriefPhrase = manuscript.matchablePhrases[stage2examinedBriefPhrase] as BriefPhrase;
+
+        briefPhraseSelected = examinedBriefPhrase;
+        briefPhraseSelected.Highlight();
+
+        // Put the found phrases on screen
+        foreach (Phrase p in examinedBriefPhrase.conflictingPhrases)
+        {
+            p.transform.SetParent(stage2phraseCanvas);
+            //   p.transform.position = Vector3.zero;
+        }
+
+
+
+        stage2examinedBriefPhrase++;
+    }
+
+    void Stage2CompareAnswer()
+    {
+        if (phraseSelected.isCorrectPhrase)
+        {
+            print("Correct Phrase found!");
+            //Hide the other phrases, empty the Stage 2 Canvas transform
+
+            Stage2NextBriefPhrase();
+        }
     }
 
 
