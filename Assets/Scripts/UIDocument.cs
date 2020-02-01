@@ -4,48 +4,46 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIDocument : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
+public class UIDocument : MonoBehaviour
 {
-    public Vector2 idlePos;
-    public Vector3 idleScale;
+    public Vector2 offscreenPos;
 
     GameController GC;
     Button closeButton;
 
     public bool inspecting; // controlled by GameController
 
+    [HideInInspector]
+    public List<Phrase> matchablePhrases = new List<Phrase>();
+
+
     public void Start()
     {
-        GC = FindObjectOfType<GameController>();
-        closeButton = GetComponentInChildren<Button>();
+        offscreenPos = GetComponent<RectTransform>().anchoredPosition;
 
-        closeButton.onClick.AddListener(CloseButton);
+        // Scan all Phrases in this doc for the ones that match with something
+        foreach (Phrase p in GetComponentsInChildren<Phrase>())
+        {
+            if (p.matchingPhrase != null)
+                matchablePhrases.Add(p);
+        }
 
-
-        idlePos = GetComponent<RectTransform>().anchoredPosition;
-        idleScale = transform.localScale;
     }
 
     public void CloseButton()
     {
-        GC.ExitInspect(this);
+        //GC.ExitInspect(this);
     }
 
-
-    public void Update()
+    public void ShowDoc(Vector2 onScreenPos)
     {
-      
-
+        print(GetComponent<RectTransform>().name);
+        transform.GetComponent<RectTransform>().anchoredPosition = onScreenPos;
     }
 
-
-    public void OnPointerClick(PointerEventData pointerEventData)
+    public void HideDoc()
     {
-       // GC.TryInspectDoc(this);
+        transform.GetComponent<RectTransform>().anchoredPosition = offscreenPos;
     }
 
-    public void OnPointerExit (PointerEventData pointerEventData)
-    {
-    //
-    }
 }

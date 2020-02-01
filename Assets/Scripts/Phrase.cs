@@ -9,17 +9,28 @@ public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     [HideInInspector]
     public bool isBriefPhrase;
 
-    [HideInInspector]
-    public Phrase matchingPhrase;
+    public BriefPhrase matchingPhrase;
+    public bool isCorrectPhrase;
 
     GameController GC;
 
     bool isSelected;
-    bool playerCorrectlyMatched;
+
+    [HideInInspector]
+    public bool playerCorrectlyMatched;
+
+    UIDocument parentDoc; // the doc that this Phrase belongs to. Doesn't apply to Brief Phrases
 
     public void Start()
     {
         GC = FindObjectOfType<GameController>();
+
+        if (!isBriefPhrase)
+            parentDoc = transform.parent.GetComponent<UIDocument>();
+
+
+        // Link the Phrase with it's matching BriefPhrase
+        matchingPhrase.conflictingPhrases.Add(this);
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
