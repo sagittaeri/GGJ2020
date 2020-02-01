@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class UIDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
 
     GameController GC;
@@ -30,8 +30,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
         if (GC.selectedUIDropZone != null)
         {
-            this.transform.SetParent (GC.selectedUIDropZone.transform);
-            this.transform.localPosition = Vector3.zero;
+            GC.selectedUIDropZone.TryDropHere(this);
         }
     }
 }

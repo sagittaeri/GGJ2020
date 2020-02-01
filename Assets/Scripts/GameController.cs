@@ -61,6 +61,8 @@ public class GameController : MonoBehaviour
         doc1Rect.anchoredPosition = new Vector2(gameCanvasRect.sizeDelta.x / 4 * -1, 0);
         doc1Rect.localScale = Vector3.one;
 
+        doc1Rect.SetAsLastSibling();
+
         inspected1 = doc1;
     }
 
@@ -70,6 +72,8 @@ public class GameController : MonoBehaviour
 
         doc2Rect.anchoredPosition = new Vector2(gameCanvasRect.sizeDelta.x / 4, 0);
         doc2Rect.localScale = Vector3.one;
+
+        doc2Rect.SetAsLastSibling();
 
         inspected2 = doc2;
     }
