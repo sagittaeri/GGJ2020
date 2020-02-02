@@ -695,6 +695,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95e914df7d1954425a65bceef75228fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  group: {fileID: 1128879881}
+  hideOnStart: {fileID: 1128879879}
+  background: {fileID: 1406679239}
+  initialTint: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &918671875
 GameObject:
   m_ObjectHideFlags: 0
