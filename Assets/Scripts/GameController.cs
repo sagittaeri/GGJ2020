@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour
     public class CutsceneImage
     {
         public float time;
-        public Image image;
+        public Sprite image;
     }
 
     public AudioClip phraseHover;
@@ -27,16 +27,20 @@ public class GameController : MonoBehaviour
     public AudioClip introAudio;
     public List<CutsceneSubtitle> introCutscene;
     [Space]
-    public List<CutsceneImage> intoCutsceneImages;
+    public List<CutsceneImage> introCutsceneImages;
     [Space]
     public AudioClip outroAudio;
     public List<CutsceneSubtitle> outroCutscene;
+    [Space]
+    public List<CutsceneImage> outroCutsceneImages;
+    [Space]
 
     public List<AudioSource> audioSources;
     public List<AudioSource> sfxSources;
     public Color initialTint;
 
     public Text subtitleText;
+    public Image cutsceneImage;
     public Transform selectedUI;
     public UIDropZone selectedUIDropZone;
 
@@ -102,6 +106,10 @@ public class GameController : MonoBehaviour
         subtitleText = GameObject.Find("SubtitleText").GetComponent<Text>();
         gameCanvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
         finalReport = GameObject.Find("FinalReport").GetComponent<RectTransform>();
+        cutsceneImage = GameObject.Find("CutsceneImage").GetComponent<Image>();
+
+        cutsceneImage.transform.localScale = Vector3.one;
+        cutsceneImage.DOFade(0f, 0f);
 
         initialSupervisorPos = supervisor.transform.localPosition;
         initialManuscriptPos = manuscript.transform.localPosition;
@@ -127,6 +135,7 @@ public class GameController : MonoBehaviour
                 StopAllCoroutines();
                 audioSources[0].Stop();
                 subtitleText.text = "";
+                cutsceneImage.DOFade(0f, 0.3f);
                 Action temp = cutsceneCallback;
                 cutsceneCallback = null;
                 temp.Invoke();
@@ -160,22 +169,33 @@ public class GameController : MonoBehaviour
         source.Play();
     }
 
-    IEnumerator RunCutscene(AudioClip clip, List<CutsceneSubtitle> subtitles, Action callback)
+    IEnumerator RunCutscene(AudioClip clip, List<CutsceneSubtitle> subtitles, List<CutsceneImage> images, Action callback)
     {
         cutsceneCallback = callback;
 
         audioSources[0].clip = clip;
         audioSources[0].Play();
-        
+
         List<CutsceneSubtitle> subs = new List<CutsceneSubtitle>(subtitles);
-        while (subs.Count > 0)
+        List<CutsceneImage> ims = new List<CutsceneImage>(images);
+        while (subs.Count > 0 || ims.Count > 0)
         {
-            CutsceneSubtitle sub = subs[0];
+            CutsceneSubtitle sub = subs.Count > 0 ? subs[0] : null;
+            CutsceneImage im = ims.Count > 0 ? ims[0] : null;
             float currentTime = audioSources[0].time;
-            if (currentTime >= sub.time)
+            if (sub != null && currentTime >= sub.time)
             {
                 subtitleText.text = sub.text;
                 subs.Remove(sub);
+            }
+            if (im != null && currentTime >= im.time)
+            {
+                cutsceneImage.DOFade(0f, 0.3f).OnComplete(() =>
+                {
+                    cutsceneImage.sprite = im.image;
+                    ims.Remove(im);
+                    cutsceneImage.DOFade(1f, 0.3f);
+                });
             }
             yield return null;
         }
@@ -199,6 +219,7 @@ public class GameController : MonoBehaviour
             yield return null;
         }
         subtitleText.text = "";
+        cutsceneImage.DOFade(0f, 0.3f);
         Action temp = cutsceneCallback;
         cutsceneCallback = null;
         temp?.Invoke();
@@ -221,7 +242,7 @@ public class GameController : MonoBehaviour
             });
         };
 
-        StartCoroutine(RunCutscene(introAudio, introCutscene, startGame));
+        StartCoroutine(RunCutscene(introAudio, introCutscene, introCutsceneImages, startGame));
     }
 
     public void OutroCutscene()
@@ -238,7 +259,7 @@ public class GameController : MonoBehaviour
         };
         background.DOColor(initialTint, 2f).OnComplete(() =>
         {
-            StartCoroutine(RunCutscene(outroAudio, outroCutscene, endGame));
+            StartCoroutine(RunCutscene(outroAudio, outroCutscene, outroCutsceneImages, endGame));
         });
     }
 
