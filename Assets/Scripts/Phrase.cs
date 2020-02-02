@@ -10,6 +10,9 @@ public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     [HideInInspector]
     public bool isBriefPhrase;
 
+    [HideInInspector]
+    public bool isStage2Phrase;
+
     public BriefPhrase matchingPhrase; // Set this on the 'Evidence' Document phrases, not the Manuscript
     public Phrase matchingAltPhrase; // Set this on the 'Evidence' Document phrases, not the Manuscript
     public bool isCorrectPhrase;
@@ -28,13 +31,18 @@ public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     {
         GC = FindObjectOfType<GameController>();
 
-        if (!isBriefPhrase)
-            parentDoc = transform.parent.GetComponent<UIDocument>();
+        if (!isStage2Phrase)
+        {
 
 
-        // Link the Phrase with it's matching BriefPhrase
-        if (matchingPhrase != null)
-            matchingPhrase.conflictingPhrases.Add(this);
+            if (!isBriefPhrase)
+                parentDoc = transform.parent.GetComponent<UIDocument>();
+
+
+            // Link the Phrase with it's matching BriefPhrase
+            if (matchingPhrase != null)
+                matchingPhrase.conflictingPhrases.Add(this);
+        }
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
