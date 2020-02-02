@@ -3919,12 +3919,54 @@ MonoBehaviour:
   - <b>David:</b> Uh... sure... I'll send up records.
   - "<b>David:</b> You probably don't want to be buried under all of her posters.\t\t"
   - <b>Me:</b> Thanks. I appreciate that.
-  supervisorProgressionMessages3: []
+  supervisorProgressionMessages3:
+  - '<b>Me:</b> Ari, the Gran Pox quarantine: they got it all wrong!'
+  - <b>Ari:</b> What?
   supervisorProgressionMessages4: []
   supervisorExtraMessages:
-  - Do you want a coffee? Tim's going for a run. (Or is it Tom? I never remember)
-  - "Nice weather outside\t"
-  - Actually no it's pretty horrible outside. Better off being in here.
+  - "David: Yooo, who keeps using the filing cabinets as bunks? I'll make you hammock
+    if you come forward now.\t\t"
+  - "Maggie: Tim's doing a coffee run soon. Who needs a caffeine fix?\t\t"
+  - "Tom: I'm going to get some coffee soon. Any takers?\t\t"
+  - "Tim: Forwarding all coffee messages to TOM. TOM is the intern; TIM is the floor
+    manager. TOM cannot argue with you. You cannot argue with TIM. Clear?\t\t"
+  - "Gerri: Hey, Tim, can you put double creamer in my coffee next time?\t\t"
+  - "Gerri: I just want a proper latte again...\t\t"
+  - "Tim: Whoever's blasting Death Metal upstairs, could you put a muffler on your
+    boombox? We like to hear ourselves think.\t\t"
+  - "David: Next coffee run, I take my coffee black. Don't contaminate my coffee
+    with cow juice.\t\t"
+  - "Maggie: Ashleigh and I want two flat-whites, each. The biggest cups you can
+    get.\t\t"
+  - "Ashleigh: Hey, who took my beer stein? That's how I drink my coffee!\t\t"
+  - "David: Hey, who left a beer stein down here?\t\t"
+  - "Gerri: Okay, tater-tots. Who's been taking MyPipe upgrades from Kusipakipikanan?
+    Anyone?\t\t"
+  - "Ashleigh: I've got 2 tickets to the Caged Warriors main-event tonight. Takers???\t\t"
+  - "Gerri: Okay, REALLY? Who let thirty viruses onto the network??\t\t"
+  - "Maggie: I'm really craving a cr\xEApe right now...\t\t"
+  - "Tim: Who brought cr\xEApes into the office and didn't share?!\t\t"
+  - "Tom: ok tater-tot\t\t"
+  - "Ashleigh: Think I've figured out how to have a coffee and a cr\xEApe in my stein
+    at the same time. Results on Clik-Clok tonight!\t\t"
+  - "Gerri: Whose password is Cr\xEApeCoffula? 1. Eat something. 2. Update your password,
+    it's weak AF\t\t"
+  - "David: I like my pancakes with actual mass. No cr\xEApes!\t\t"
+  - "Ari: I'm a tea-drinker; no bean juice for me\t\t"
+  - "Ari: Someone order me a cr\xEApe with the lot. Hazelnut spread, bananas, pineapple,
+    ham, cheese; everything!\t\t"
+  - "Ari: Tim, let Tom have his music. Nobody questions your taste in jazz, so nobody
+    questions Tom about his hard rock.\t\t"
+  - "Ari: There will be a floor meeting if anyone sleeps in Archives again. You're
+    also dealing with Document Dave. Angry Document Dave\t\t"
+  - "Ashleigh: Who smells like bacon? Either shower up or share some of that pig
+    with me!\t\t"
+  - "Maggie: I smell a chocolate cake. What's the occasion? :D\t\t"
+  - "Tom: Hey guys, the cake in the fridge is mine. It's my birthday tomorrow. Please
+    don't eat it\t\t"
+  - "Tim: Reminder that any food in the fridge not cleared by the end of the day
+    will be removed by security.\t\t"
+  - "Ari: Friendly reminder to be nice to Tom. You were all juniors once too.\t\t"
   scrollContentTransform: {fileID: 166632138}
   textMessagePrefab: {fileID: 8219555194311635592, guid: f83da26b791b66f488bfb2e84229b96f,
     type: 3}
