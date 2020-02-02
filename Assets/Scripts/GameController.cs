@@ -138,6 +138,7 @@ public class GameController : MonoBehaviour
             {
                 StopAllCoroutines();
                 audioSources[0].Stop();
+                audioSources[3].Stop();
                 subtitleText.text = "";
                 cutsceneImage.DOFade(0f, 0.3f);
                 Action temp = cutsceneCallback;
