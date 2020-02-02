@@ -7063,7 +7063,7 @@ GameObject:
   - component: {fileID: 1945459793}
   - component: {fileID: 1945459792}
   m_Layer: 5
-  m_Name: Stage 2 Newspaper
+  m_Name: FinalReport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

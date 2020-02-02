@@ -14,8 +14,18 @@ public class GameController : MonoBehaviour
         public string text;
     }
 
+    [Serializable]
+    public class CutsceneImage
+    {
+        public float time;
+        public Image image;
+    }
+
     public AudioClip introAudio;
     public List<CutsceneSubtitle> introCutscene;
+    [Space]
+    public List<CutsceneImage> intoCutsceneImages;
+    [Space]
     public AudioClip outroAudio;
     public List<CutsceneSubtitle> outroCutscene;
 
@@ -161,6 +171,20 @@ public class GameController : MonoBehaviour
             }
             yield return null;
         }
+
+        // Cutscene Images
+        //List<CutsceneImage> imgs = intoCutsceneImages;
+        //while (imgs.Count > 0)
+        //{
+        //    CutsceneSubtitle sub = subs[0];
+        //    float currentTime = audioSources[0].time;
+        //    if (currentTime >= sub.time)
+        //    {
+        //        subtitleText.text = sub.text;
+        //        subs.Remove(sub);
+        //    }
+        //    yield return null;
+        //}
 
         while (audioSources[0].isPlaying)
         {
