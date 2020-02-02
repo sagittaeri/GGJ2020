@@ -221,10 +221,11 @@ public class GameController : MonoBehaviour
         //    yield return null;
         //}
 
-        while (audioSources[0].isPlaying || audioSources[3].isPlaying)
+        while (audioSources[3].isPlaying)
         {
             yield return null;
         }
+        audioSources[0].Stop();
         subtitleText.text = "";
         cutsceneImage.DOFade(0f, 0.3f);
         Action temp = cutsceneCallback;
