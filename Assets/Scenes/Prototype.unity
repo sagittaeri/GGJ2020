@@ -3852,14 +3852,14 @@ MonoBehaviour:
     court hearing he thinks doesn't add up.
   - <b>Ari:</b> Could you check over that and make sure he's not having another stomach
     ache?
-  - <b>You:</b> On it.
+  - <b>Me:</b> On it.
   supervisorProgressionMessages2:
-  - <b>You:</b> Document Dave?
-  - <b>You:</b> I need whatever you can find on a Julienne Blanchette, year 4040.
+  - <b>Me:</b> Document Dave?
+  - <b>Me:</b> I need whatever you can find on a Julienne Blanchette, year 4040.
   - <b>David:</b> The actress?
   - <b>David:</b> Uh... sure... I'll send up records.
   - "<b>David:</b> You probably don't want to be buried under all of her posters.\t\t"
-  - <b>You:</b> Thanks. I appreciate that.
+  - <b>Me:</b> Thanks. I appreciate that.
   supervisorProgressionMessages3: []
   supervisorProgressionMessages4: []
   supervisorExtraMessages:

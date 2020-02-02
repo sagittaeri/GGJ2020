@@ -41,10 +41,11 @@ public class Supervisor : MonoBehaviour
         originalPos = scrollBackground.transform.parent.localPosition;
     }
 
-    public void InitSupervisor()
+    public void InitSupervisor(Action callback)
     {
         NewProgressionMessage(()=>
         {
+            callback?.Invoke();
             StartCoroutine("ExtraMessageDelay");
         });
     }
@@ -80,7 +81,7 @@ public class Supervisor : MonoBehaviour
 
         GameObject newText = Instantiate(textMessagePrefab, scrollContentTransform);
         newText.GetComponent<Text>().text = System.DateTime.Now.Hour + ":" + System.DateTime.Now.Minute + "   " + text;
-        scrollRect.DOVerticalNormalizedPos(0f, 1f, true).SetDelay(0.1f);
+        scrollRect.DOVerticalNormalizedPos(0f, 1f, true).SetDelay(0.01f);
 
         scrollBackground.DOKill(true);
         scrollBackground.DOColor(notifyColor, 0.2f).OnComplete(() =>

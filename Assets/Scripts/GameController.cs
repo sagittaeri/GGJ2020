@@ -296,11 +296,16 @@ public class GameController : MonoBehaviour
     public void CompleteDoc() // Called when the GameController has deemed all phrases in the doc to be matched
     {
         print("Doc complete");
-        GetComponent<Supervisor>().NewProgressionMessage();
 
-        DOVirtual.DelayedCall(3f, () =>
+        DOVirtual.DelayedCall(0.5f, () =>
         {
-            NewDocOnScreen();
+            GetComponent<Supervisor>().NewProgressionMessage(()=>
+            {
+                DOVirtual.DelayedCall(0.5f, () =>
+                {
+                    NewDocOnScreen();
+                });
+            });
         });
     }
 
@@ -324,9 +329,14 @@ public class GameController : MonoBehaviour
         // Remove the old doc. Skip this if it is the first doc
         if (docStage == 1)
         {
-            GetComponent<Supervisor>().InitSupervisor();
             activeDocument = evidenceDocs[0];
-            activeDocument.ShowDoc(new Vector2( gameCanvasRect.sizeDelta.x / 4, 0));
+            DOVirtual.DelayedCall(0.5f, () =>
+            {
+                GetComponent<Supervisor>().InitSupervisor(()=>
+                {
+                    activeDocument.ShowDoc(new Vector2(gameCanvasRect.sizeDelta.x / 4, 0));
+                });
+            });
         }
         else
         {
