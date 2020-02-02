@@ -3236,7 +3236,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 860690253}
   m_HandleRect: {fileID: 860690252}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3478,7 +3478,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1941879311}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9999999
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3905,6 +3905,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db925d3ada9f7a04b93e58949d194773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newimportantMessage: {fileID: 8300000, guid: 94f0c4ecbc6f6784a9d4897be1930c2b, type: 3}
+  newExtraMessage: {fileID: 8300000, guid: 6e622caa833214c4da488dc33ba00684, type: 3}
   supervisorProgressionMessages:
   - <b>Ari:</b> Not sure if you were watching channel 69's... "documentaries" again.
   - <b>Ari:</b> Relating to that 4040 Gran Pox special, Document Dave found an old
@@ -3988,6 +3990,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f189026b988ee96429f91202baabca63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  phraseHover: {fileID: 8300000, guid: 52606e1f45c04f043a9cc23e03008b35, type: 3}
+  phraseSelect: {fileID: 8300000, guid: 4fa65ef630ed34e45989ec52d48361aa, type: 3}
+  phraseMatchGood: {fileID: 8300000, guid: d30e54ded24d1b8439dc0713f30bc050, type: 3}
   introAudio: {fileID: 8300000, guid: d23edec66c9cd4eeab973b2a3cb1c7c5, type: 3}
   introCutscene:
   - time: 1
@@ -4010,6 +4015,7 @@ MonoBehaviour:
   - time: 60
     text: "One had to wonder: if the nurse hadn\u2019t broken quarantine protocols,
       would the plague have claimed as many lives as it did?"
+  intoCutsceneImages: []
   outroAudio: {fileID: 8300000, guid: 2a95ec92cb4ee4ed5b803b14e0c36816, type: 3}
   outroCutscene:
   - time: 0
@@ -7661,7 +7667,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: e05a042ea269ff24fa3bc4ea2f1035c6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

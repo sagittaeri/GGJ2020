@@ -21,6 +21,9 @@ public class GameController : MonoBehaviour
         public Image image;
     }
 
+    public AudioClip phraseHover;
+    public AudioClip phraseSelect;
+    public AudioClip phraseMatchGood;
     public AudioClip introAudio;
     public List<CutsceneSubtitle> introCutscene;
     [Space]
@@ -334,6 +337,7 @@ public class GameController : MonoBehaviour
                 briefPhraseSelected.ReturnToNormal(true);
                 phraseSelected.ReturnToNormal(true);
                 print("A match!");
+                PlaySound(phraseMatchGood);
             }
             else
             {

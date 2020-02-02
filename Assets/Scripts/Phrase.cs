@@ -7,6 +7,9 @@ using DG.Tweening;
 
 public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
+
+    
+
     [HideInInspector]
     public bool isBriefPhrase;
 
@@ -51,6 +54,7 @@ public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         {
             //transform.localScale = Vector3.one * 1.1f;
             transform.DOScale(1.1f, 0.3f);
+            GameController.PlaySound(GC.phraseHover);
         }
     }
 
@@ -70,6 +74,7 @@ public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
             isSelected = !isSelected;
             Highlight();
             GC.SelectPhrase(this);
+            GameController.PlaySound(GC.phraseSelect);
         }
     }
 
