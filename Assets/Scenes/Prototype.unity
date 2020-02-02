@@ -3947,16 +3947,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   introAudio: {fileID: 8300000, guid: d23edec66c9cd4eeab973b2a3cb1c7c5, type: 3}
   introCutscene:
-  - time: 2
-    text: This is some text
+  - time: 1
+    text: Terror Plague in Coventry, 100 years ago.
   - time: 5
-    text: This is another text
-  - time: 8
-    text: This is another text 3
+    text: "This is a story about Doctor Ralph Bergmen, and the infamous plague that
+      took his son\u2019s life."
   - time: 12
-    text: This is another text 4
+    text: "As an Infectious Diseases Specialist, the doctor was among the first deployed
+      to contain the emerging epidemic threat. His team\u2019s failure to quarantine
+      the virus would haunt him for the rest of his life."
+  - time: 27
+    text: "On his team was a nurse who allowed an actress to quietly leave quarantine\u2026
+      for a substantial bribe. Government officials believed the actress was the
+      first infectee, and by breaking quarantine she doomed countless of lives in
+      the city. Doctor Bergmen\u2019s son was one of the first victims."
+  - time: 50
+    text: Despite grieving for his son, Doctor Bergman eventually developed a vaccine,
+      effectively ending the epidemic.
+  - time: 60
+    text: "One had to wonder: if the nurse hadn\u2019t broken quarantine protocols,
+      would the plague have claimed as many lives as it did?"
   outroAudio: {fileID: 8300000, guid: 2a95ec92cb4ee4ed5b803b14e0c36816, type: 3}
-  outroCutscene: []
+  outroCutscene:
+  - time: 0
+    text: Terror Plague in Coventry, 100 years ago.
+  - time: 5
+    text: This is a story about Catrinne Halsy, and the actress Julienne Blanchette,
+      whom she was romantically involved with.
+  - time: 14
+    text: "As an aspiring doctor at the new Women\u2019s Institute of Medicine, Nurse
+      Halsy was among the first deployed to contain the emerging epidemic threat."
+  - time: 24
+    text: When Blanchette fell ill, the actress offered herself as a subject to Halsy
+      in order to study the virus. Catrinne Halsy eventually discovered the antibodies
+      and administered the trial vaccine to the actress, saving her life. She then
+      shared her findings with her attending doctor, which led to the ending of the
+      plague.
+  - time: 48
+    text: Nurse Catrinne Halsy and Julienne Blanchette, whatever misgivings people
+      have about their relationship, were heroes.
   audioSources:
   - {fileID: 2045627815}
   - {fileID: 2079581176}
