@@ -7,6 +7,11 @@ using DG.Tweening;
 
 public class Supervisor : MonoBehaviour
 {
+    public AudioClip newimportantMessage;
+    public AudioClip newExtraMessage;
+
+    
+
     [TextArea]
     public List<string> supervisorProgressionMessages = new List<string>();
     [TextArea]
@@ -54,6 +59,8 @@ public class Supervisor : MonoBehaviour
     {
         print("New Progression Message");
 
+        GameController.PlaySound(newimportantMessage);
+         
         List<string> listMessages = supervisorProgressionMessages;
         if (progMessage == 1)
             listMessages = supervisorProgressionMessages2;
@@ -125,6 +132,8 @@ public class Supervisor : MonoBehaviour
     public void NewExtraMessage()
     {
         print("New Extra Message");
+        GameController.PlaySound(newExtraMessage);
+
         if (!currentlyInProgressionMessages)
         {
             GameObject newText = Instantiate(textMessagePrefab, scrollContentTransform);
