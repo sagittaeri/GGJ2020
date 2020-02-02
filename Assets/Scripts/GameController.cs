@@ -25,11 +25,13 @@ public class GameController : MonoBehaviour
     public AudioClip phraseSelect;
     public AudioClip phraseMatchGood;
     public AudioClip introAudio;
+    public AudioClip introVO;
     public List<CutsceneSubtitle> introCutscene;
     [Space]
     public List<CutsceneImage> introCutsceneImages;
     [Space]
     public AudioClip outroAudio;
+    public AudioClip outroVO;
     public List<CutsceneSubtitle> outroCutscene;
     [Space]
     public List<CutsceneImage> outroCutsceneImages;
@@ -169,12 +171,14 @@ public class GameController : MonoBehaviour
         source.Play();
     }
 
-    IEnumerator RunCutscene(AudioClip clip, List<CutsceneSubtitle> subtitles, List<CutsceneImage> images, Action callback)
+    IEnumerator RunCutscene(AudioClip clip, AudioClip vo, List<CutsceneSubtitle> subtitles, List<CutsceneImage> images, Action callback)
     {
         cutsceneCallback = callback;
 
         audioSources[0].clip = clip;
         audioSources[0].Play();
+        audioSources[3].clip = vo;
+        audioSources[3].Play();
 
         List<CutsceneSubtitle> subs = new List<CutsceneSubtitle>(subtitles);
         List<CutsceneImage> ims = new List<CutsceneImage>(images);
@@ -214,7 +218,7 @@ public class GameController : MonoBehaviour
         //    yield return null;
         //}
 
-        while (audioSources[0].isPlaying)
+        while (audioSources[0].isPlaying || audioSources[3].isPlaying)
         {
             yield return null;
         }
@@ -242,7 +246,7 @@ public class GameController : MonoBehaviour
             });
         };
 
-        StartCoroutine(RunCutscene(introAudio, introCutscene, introCutsceneImages, startGame));
+        StartCoroutine(RunCutscene(introAudio, introVO, introCutscene, introCutsceneImages, startGame));
     }
 
     public void OutroCutscene()
@@ -259,7 +263,7 @@ public class GameController : MonoBehaviour
         };
         background.DOColor(initialTint, 2f).OnComplete(() =>
         {
-            StartCoroutine(RunCutscene(outroAudio, outroCutscene, outroCutsceneImages, endGame));
+            StartCoroutine(RunCutscene(outroAudio, outroVO, outroCutscene, outroCutsceneImages, endGame));
         });
     }
 
