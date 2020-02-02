@@ -49,8 +49,16 @@ public class GameController : MonoBehaviour
     Image background;
     Image supervisor;
     UIDocument manuscript;
+    RectTransform finalReport;
     BriefPhrase examinedBriefPhrase; // The phrase the player is choosing the 'true' fact for
     List<Phrase> foundPhrases = new List<Phrase>(); // The matching phrases that will be moved on screen. 
+
+    // STAGE 2 NEW 
+    public GameObject stage2Button;
+
+    public List<Stage2Paragraph> stage2Paragraphs = new List<Stage2Paragraph>();
+    Stage2Paragraph activeStage2Paragraph;
+    int stage2paraCount;
 
     Vector3 initialSupervisorPos;
     Vector3 initialManuscriptPos;
@@ -67,12 +75,15 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        stage2Button.SetActive(false);
+
         stage2phraseCanvas.gameObject.SetActive(false);
         background = GameObject.Find("CanvasBackground").GetComponent<Image>();
         supervisor = GameObject.Find("SupervisorChat").GetComponent<Image>();
         manuscript = GameObject.Find("Manuscript").GetComponent<UIDocument>();
         subtitleText = GameObject.Find("SubtitleText").GetComponent<Text>();
         gameCanvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
+        finalReport = GameObject.Find("FinalReport").GetComponent<RectTransform>();
 
         initialSupervisorPos = supervisor.transform.localPosition;
         initialManuscriptPos = manuscript.transform.localPosition;
@@ -201,6 +212,8 @@ public class GameController : MonoBehaviour
 
     public void SelectPhrase(Phrase selectedPhrase)
     {
+      
+
         if (gameStage == 1 && selectedPhrase.isBriefPhrase)
         {
             // Pick or cycle the Brief Phrase
@@ -250,11 +263,12 @@ public class GameController : MonoBehaviour
         {
             if (gameStage == 1)
                 ComparePhrases();
-            else if (gameStage == 2)
-                Stage2CompareAnswer();
+            
         }
 
     }
+
+   
 
 
     public void ComparePhrases()
@@ -320,8 +334,8 @@ public class GameController : MonoBehaviour
         if (docStage == 3) // No more new docs! time for Stage 2
         {
             activeDocument.HideDoc();
-            manuscript.GetComponent<RectTransform>().DOAnchorPos(Vector3.zero, 0.5f).SetDelay(1f);
-            manuscript.transform.DOScale(Vector3.one, 0.5f).SetDelay(1f);
+            finalReport.DOAnchorPos(Vector3.zero, 0.5f).SetDelay(1f);
+            finalReport.transform.DOScale(Vector3.one, 0.5f).SetDelay(1f);
             DOVirtual.DelayedCall(1.5f, Stage2);
             return;
         }
@@ -358,10 +372,40 @@ public class GameController : MonoBehaviour
         gameStage = 2;
         print("Stage 2 now");
         stage2phraseCanvas.gameObject.SetActive(true);
+        stage2Button.SetActive(true);
+    }
+
+    public void Stage2Submit() // Manually linked up to the submit button
+    {
 
     }
 
-    void Stage2NextBriefPhrase()
+    public void Stage2SelectChoice(Stage2Choic choiceSelected)
+    {
+        if (choiceSelected.isCorrect)
+        {
+            
+            Stage2CorrectAnswer();
+        }
+        else
+            Stage2WrongAnswer();
+
+    }
+
+
+    void Stage2CorrectAnswer()
+    {
+    //    activeStage2Paragraph.content
+
+        Stage2NextParagrph();
+    }
+
+    void Stage2WrongAnswer()
+    {
+
+    }
+
+    void Stage2NextParagrph() // For changing to the next paragraph
     {
         // Empty the canvas
         foreach (Transform t in stage2phraseCanvas)
@@ -371,14 +415,16 @@ public class GameController : MonoBehaviour
             t.gameObject.SetActive(false);
         }
 
+        activeStage2Paragraph = stage2Paragraphs[stage2paraCount];
 
-        examinedBriefPhrase = manuscript.matchablePhrases[stage2examinedBriefPhrase] as BriefPhrase;
 
-        briefPhraseSelected = examinedBriefPhrase;
-        briefPhraseSelected.Highlight();
+        //examinedBriefPhrase = manuscript.matchablePhrases[stage2examinedBriefPhrase] as BriefPhrase;
+
+        //briefPhraseSelected = examinedBriefPhrase;
+        //briefPhraseSelected.Highlight();
 
         // Put the found phrases on screen
-        foreach (Phrase p in examinedBriefPhrase.conflictingPhrases)
+        foreach (Stage2Choic p in activeStage2Paragraph.matchingChoices)
         {
             p.transform.SetParent(stage2phraseCanvas);
             //   p.transform.position = Vector3.zero;
@@ -389,16 +435,16 @@ public class GameController : MonoBehaviour
         stage2examinedBriefPhrase++;
     }
 
-    void Stage2CompareAnswer()
-    {
-        if (phraseSelected.isCorrectPhrase)
-        {
-            print("Correct Phrase found!");
-            //Hide the other phrases, empty the Stage 2 Canvas transform
+    //void Stage2CompareAnswer()
+    //{
+    //    if (phraseSelected.isCorrectPhrase)
+    //    {
+    //        print("Correct Phrase found!");
+    //        //Hide the other phrases, empty the Stage 2 Canvas transform
 
-            Stage2NextBriefPhrase();
-        }
-    }
+    //        Stage2NextParagrph();
+    //    }
+    //}
 
 
     // OLD CODE from when we would inspect multiple docs. This is mostly handled from UIDocument now
