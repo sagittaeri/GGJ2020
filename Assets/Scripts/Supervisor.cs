@@ -98,17 +98,11 @@ public class Supervisor : MonoBehaviour
         scrollBackground.transform.parent.DOKill(true);
         scrollBackground.transform.parent.DOLocalMoveY(originalPos.y + 20f, 0.2f).OnComplete(() =>
         {
-            scrollBackground.transform.parent.DOLocalMoveY(originalPos.y, 0.2f).OnComplete(() =>
-            {
-                scrollBackground.transform.parent.DOLocalMoveY(originalPos.y + 20f, 0.2f).OnComplete(() =>
-                {
-                    scrollBackground.transform.parent.DOLocalMoveY(originalPos.y, 0.2f);
-                });
-            });
+            scrollBackground.transform.parent.DOLocalMoveY(originalPos.y, 0.2f);
         });
 
-        DOVirtual.DelayedCall(3f, () =>
-        {
+        DOVirtual.DelayedCall(2f, () =>
+       { 
             AddOneNewProgressionMessage(index + 1, listMessages, callback);
         });
     }

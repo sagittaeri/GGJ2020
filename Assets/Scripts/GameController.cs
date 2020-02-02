@@ -27,15 +27,20 @@ public class GameController : MonoBehaviour
     public Transform selectedUI;
     public UIDropZone selectedUIDropZone;
 
-   // public UIDocument inspected1;
-   // public UIDocument inspected2;
+    // public UIDocument inspected1;
+    // public UIDocument inspected2;
+    public int Stage1BTotalMatchingPhrases;
+    int Stage1BMatchingPhrasesFound;
 
     public BriefPhrase briefPhraseSelected;
     public Phrase phraseSelected;
+    public Phrase altPhraseSelected;
 
     public List<UIDocument> evidenceDocs = new List<UIDocument>();
 
     public UIDocument activeDocument;
+    public UIDocument altDocument;
+    public bool altDocIsShowing;
     int docStage; // 0 = first doc on screen
 
     public RectTransform gameCanvasRect;
@@ -201,7 +206,7 @@ public class GameController : MonoBehaviour
 
     public void SelectPhrase(Phrase selectedPhrase)
     {
-        if (gameStage == 1 && selectedPhrase.isBriefPhrase)
+        if (selectedPhrase.isBriefPhrase)
         {
             // Pick or cycle the Brief Phrase
             if (briefPhraseSelected == null)
@@ -225,28 +230,52 @@ public class GameController : MonoBehaviour
         // Pick or cycle the evidence/doc Phrase
         if (!selectedPhrase.isBriefPhrase)
         {
-            // Pick or cycle the Brief Phrase
-            if (phraseSelected == null)
+            if (altDocument != null && selectedPhrase.transform.parent == altDocument.transform)
             {
-                phraseSelected = selectedPhrase;
-            }
+                // Pick or cycle the Brief Phrase
+                if (altPhraseSelected == null)
+                {
+                    altPhraseSelected = selectedPhrase;
+                }
 
-            else if (phraseSelected == selectedPhrase)
-            {
-                phraseSelected.ReturnToNormal(false);
-                phraseSelected = null;
-                return;
+                else if (altPhraseSelected == selectedPhrase)
+                {
+                    altPhraseSelected.ReturnToNormal(false);
+                    altPhraseSelected = null;
+                    return;
+                }
+                else
+                {
+                    altPhraseSelected.ReturnToNormal(false);
+                    altPhraseSelected = null;
+                    SelectPhrase(selectedPhrase);
+                }
             }
             else
             {
-                phraseSelected.ReturnToNormal(false);
-                phraseSelected = null;
-                SelectPhrase(selectedPhrase);
-            }
 
+                // Pick or cycle the Brief Phrase
+                if (phraseSelected == null)
+                {
+                    phraseSelected = selectedPhrase;
+                }
+
+                else if (phraseSelected == selectedPhrase)
+                {
+                    phraseSelected.ReturnToNormal(false);
+                    phraseSelected = null;
+                    return;
+                }
+                else
+                {
+                    phraseSelected.ReturnToNormal(false);
+                    phraseSelected = null;
+                    SelectPhrase(selectedPhrase);
+                }
+            }
         }
 
-        if (briefPhraseSelected != null && phraseSelected != null)
+        if ((!altDocIsShowing && briefPhraseSelected != null) || (altDocIsShowing && altPhraseSelected != null) && phraseSelected != null)
         {
             if (gameStage == 1)
                 ComparePhrases();
@@ -340,16 +369,57 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            activeDocument.HideDoc();
-            activeDocument.ResetPhrases();
+            if (docStage == 2)
+            {
+                manuscript.transform.SetAsLastSibling();
+                altDocument = activeDocument;
+                DOVirtual.DelayedCall(0.7f, () =>
+                {
+                    altDocument.ShowDoc(manuscript.GetComponent<RectTransform>().anchoredPosition + new Vector2(130f, 20f));
+                    altDocument.ResetPhrases(true);
+                    altDocument.clickCallback = SwapDocuments;
+                });
+            }
+            else
+            {
+                activeDocument.HideDoc();
+                activeDocument.ResetPhrases();
+            }
             // increase the doc stage
             // show the new doc
             DOVirtual.DelayedCall(1f, () =>
             {
-                activeDocument = evidenceDocs[docStage];
+                activeDocument = evidenceDocs[docStage-1];
                 activeDocument.ShowDoc(new Vector2(gameCanvasRect.sizeDelta.x / 4, 0));
             });
         }
+    }
+
+    void SwapDocuments()
+    {
+        UIDocument front;
+        UIDocument back;
+
+        if (altDocIsShowing)
+        {
+            front = manuscript;
+            back = altDocument;
+        }
+        else
+        {
+            front = altDocument;
+            back = manuscript;
+        }
+        altDocIsShowing = !altDocIsShowing;
+
+        //ack.ShowDoc(manuscript.GetComponent<RectTransform>().anchoredPosition + new Vector2(130f, 20f));
+        back.transform.DOLocalMove(initialManuscriptPos + new Vector3(130f, 20f), 0.5f);
+        back.ResetPhrases();
+        back.clickCallback = SwapDocuments;
+
+        front.transform.DOLocalMove(initialManuscriptPos, 0.5f);
+        front.transform.SetAsLastSibling();
+        activeDocument.transform.SetAsLastSibling();
     }
 
 
@@ -391,13 +461,72 @@ public class GameController : MonoBehaviour
 
     void Stage2CompareAnswer()
     {
-        if (phraseSelected.isCorrectPhrase)
-        {
-            print("Correct Phrase found!");
-            //Hide the other phrases, empty the Stage 2 Canvas transform
+        //if (phraseSelected.isCorrectPhrase)
+        //{
+        //    print("Correct Phrase found!");
+        //    //Hide the other phrases, empty the Stage 2 Canvas transform
 
-            Stage2NextBriefPhrase();
+        //    Stage2NextBriefPhrase();
+        //}
+
+        if (altDocIsShowing)
+        {
+            if (altPhraseSelected != null && phraseSelected != null)
+            {
+                print("Comparing...");
+                if (altPhraseSelected.matchingAltPhrase == phraseSelected || altPhraseSelected == phraseSelected.matchingAltPhrase)
+                {
+                    // Match works! 
+                    altPhraseSelected.ReturnToNormal(true);
+                    phraseSelected.ReturnToNormal(true);
+                    print("A match!");
+                    Stage1BMatchingPhrasesFound++;
+                }
+                else
+                {
+                    // not a match
+                    altPhraseSelected.ReturnToNormal(false);
+                    phraseSelected.ReturnToNormal(false);
+                    print("Not a match");
+                }
+            }
+
+            // Return phrases to normal
+            altPhraseSelected = null;
+            phraseSelected = null;
         }
+        else
+        {
+            if (briefPhraseSelected != null && phraseSelected != null)
+            {
+                print("Comparing...");
+                if (briefPhraseSelected.conflictingPhrases.Contains(phraseSelected))
+                {
+                    // Match works! 
+                    briefPhraseSelected.ReturnToNormal(true);
+                    phraseSelected.ReturnToNormal(true);
+                    print("A match!");
+                    Stage1BMatchingPhrasesFound++;
+                }
+                else
+                {
+                    // not a match
+                    briefPhraseSelected.ReturnToNormal(false);
+                    phraseSelected.ReturnToNormal(false);
+                    print("Not a match");
+                }
+            }
+
+            // Return phrases to normal
+            briefPhraseSelected = null;
+            phraseSelected = null;
+        }
+
+        if (Stage1BMatchingPhrasesFound >= Stage1BTotalMatchingPhrases)
+        {
+            CompleteDoc();
+        }
+
     }
 
 

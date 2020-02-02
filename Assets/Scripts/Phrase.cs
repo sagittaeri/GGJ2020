@@ -11,6 +11,7 @@ public class Phrase : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     public bool isBriefPhrase;
 
     public BriefPhrase matchingPhrase; // Set this on the 'Evidence' Document phrases, not the Manuscript
+    public Phrase matchingAltPhrase; // Set this on the 'Evidence' Document phrases, not the Manuscript
     public bool isCorrectPhrase;
 
     GameController GC;

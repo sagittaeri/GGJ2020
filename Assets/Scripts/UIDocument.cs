@@ -1,18 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class UIDocument : MonoBehaviour
+public class UIDocument : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public Vector2 offscreenPos;
+    public Image background;
 
     GameController GC;
     Button closeButton;
 
     public bool inspecting; // controlled by GameController
+    public Action clickCallback;
 
     [HideInInspector]
     public List<Phrase> matchablePhrases = new List<Phrase>();
@@ -23,6 +26,7 @@ public class UIDocument : MonoBehaviour
     public void Start()
     {
         offscreenPos = GetComponent<RectTransform>().anchoredPosition;
+        background = GetComponentInChildren<Image>();
 
         // Scan all Phrases in this doc for the ones that match with something
         foreach (Phrase p in GetComponentsInChildren<Phrase>())
@@ -69,4 +73,29 @@ public class UIDocument : MonoBehaviour
         }
     }
 
+    public void OnPointerEnter(PointerEventData pointerEventData)
+    {
+        if (clickCallback != null)
+        {
+            background.DOColor(Color.yellow, 0.3f);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData pointerEventData)
+    {
+        if (clickCallback != null)
+        {
+            background.DOColor(Color.white, 0.3f);
+        }
+    }
+
+    public void OnPointerClick(PointerEventData pointerEventData)
+    {
+        if (clickCallback != null)
+        {
+            background.DOColor(Color.yellow, 0.3f);
+            clickCallback?.Invoke();
+            clickCallback = null;
+        }
+    }
 }
