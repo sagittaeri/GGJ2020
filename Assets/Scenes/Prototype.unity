@@ -175,6 +175,7 @@ MonoBehaviour:
   isBriefPhrase: 0
   isStage2Phrase: 0
   matchingPhrase: {fileID: 1998454996}
+  matchingAltPhrase: {fileID: 0}
   isCorrectPhrase: 0
   isSelected: 0
   playerCorrectlyMatched: 0
@@ -359,6 +360,7 @@ MonoBehaviour:
   isBriefPhrase: 0
   isStage2Phrase: 0
   matchingPhrase: {fileID: 46676098}
+  matchingAltPhrase: {fileID: 0}
   isCorrectPhrase: 0
   isSelected: 0
   playerCorrectlyMatched: 0
@@ -463,13 +465,11 @@ MonoBehaviour:
   isBriefPhrase: 0
   isStage2Phrase: 0
   matchingPhrase: {fileID: 0}
+  matchingAltPhrase: {fileID: 0}
   isCorrectPhrase: 0
   isSelected: 0
   playerCorrectlyMatched: 0
-  conflictingPhrases:
-  - {fileID: 229404461}
-  - {fileID: 204225324}
-  - {fileID: 0}
+  conflictingPhrases: []
   correctPhrase: {fileID: 0}
 --- !u!114 &46676099
 MonoBehaviour:
@@ -765,6 +765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offscreenPos: {x: 0, y: 0}
+  background: {fileID: 0}
   inspecting: 0
   matchablePhrases: []
   briefPhrases: []
@@ -1039,6 +1040,7 @@ MonoBehaviour:
   isBriefPhrase: 0
   isStage2Phrase: 0
   matchingPhrase: {fileID: 0}
+  matchingAltPhrase: {fileID: 0}
   isCorrectPhrase: 0
   isSelected: 0
   playerCorrectlyMatched: 0
@@ -1258,6 +1260,7 @@ MonoBehaviour:
   isBriefPhrase: 0
   isStage2Phrase: 0
   matchingPhrase: {fileID: 886726431}
+  matchingAltPhrase: {fileID: 0}
   isCorrectPhrase: 1
   isSelected: 0
   playerCorrectlyMatched: 0
@@ -1318,6 +1321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offscreenPos: {x: 0, y: 0}
+  background: {fileID: 0}
   inspecting: 0
   matchablePhrases: []
   briefPhrases: []
@@ -1499,6 +1503,7 @@ MonoBehaviour:
   isBriefPhrase: 0
   isStage2Phrase: 0
   matchingPhrase: {fileID: 886726431}
+  matchingAltPhrase: {fileID: 0}
   isCorrectPhrase: 1
   isSelected: 0
   playerCorrectlyMatched: 0
@@ -1951,6 +1956,7 @@ MonoBehaviour:
   isBriefPhrase: 0
   isStage2Phrase: 0
   matchingPhrase: {fileID: 0}
+  matchingAltPhrase: {fileID: 0}
   isCorrectPhrase: 0
   isSelected: 0
   playerCorrectlyMatched: 0
@@ -2056,6 +2062,7 @@ MonoBehaviour:
   isBriefPhrase: 0
   isStage2Phrase: 0
   matchingPhrase: {fileID: 0}
+  matchingAltPhrase: {fileID: 0}
   isCorrectPhrase: 0
   isSelected: 0
   playerCorrectlyMatched: 0
@@ -3111,13 +3118,11 @@ MonoBehaviour:
   isBriefPhrase: 0
   isStage2Phrase: 0
   matchingPhrase: {fileID: 0}
+  matchingAltPhrase: {fileID: 0}
   isCorrectPhrase: 0
   isSelected: 0
   playerCorrectlyMatched: 0
-  conflictingPhrases:
-  - {fileID: 1311801187}
-  - {fileID: 204225324}
-  - {fileID: 0}
+  conflictingPhrases: []
   correctPhrase: {fileID: 0}
 --- !u!114 &886726432
 MonoBehaviour:
@@ -3620,6 +3625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offscreenPos: {x: 0, y: 0}
+  background: {fileID: 0}
   inspecting: 0
   matchablePhrases: []
   briefPhrases: []
@@ -3990,6 +3996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f189026b988ee96429f91202baabca63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finishBUtton: {fileID: 1725468195}
   phraseHover: {fileID: 8300000, guid: 52606e1f45c04f043a9cc23e03008b35, type: 3}
   phraseSelect: {fileID: 8300000, guid: 4fa65ef630ed34e45989ec52d48361aa, type: 3}
   phraseMatchGood: {fileID: 8300000, guid: d30e54ded24d1b8439dc0713f30bc050, type: 3}
@@ -4047,13 +4054,17 @@ MonoBehaviour:
   subtitleText: {fileID: 0}
   selectedUI: {fileID: 0}
   selectedUIDropZone: {fileID: 0}
+  Stage1BTotalMatchingPhrases: 0
   briefPhraseSelected: {fileID: 0}
   phraseSelected: {fileID: 0}
+  altPhraseSelected: {fileID: 0}
   evidenceDocs:
   - {fileID: 1897600537}
   - {fileID: 344387308}
   - {fileID: 0}
   activeDocument: {fileID: 0}
+  altDocument: {fileID: 0}
+  altDocIsShowing: 0
   gameCanvasRect: {fileID: 0}
   canvasScaleRatio: 0
   stage2phraseCanvas: {fileID: 1928769574}
@@ -4367,6 +4378,7 @@ RectTransform:
   - {fileID: 1922805635}
   - {fileID: 1945459791}
   - {fileID: 631297203}
+  - {fileID: 1725468195}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4922,13 +4934,11 @@ MonoBehaviour:
   isBriefPhrase: 0
   isStage2Phrase: 0
   matchingPhrase: {fileID: 0}
+  matchingAltPhrase: {fileID: 0}
   isCorrectPhrase: 0
   isSelected: 0
   playerCorrectlyMatched: 0
-  conflictingPhrases:
-  - {fileID: 229404461}
-  - {fileID: 1311801187}
-  - {fileID: 423269949}
+  conflictingPhrases: []
   correctPhrase: {fileID: 1311801187}
 --- !u!1 &1300455722
 GameObject:
@@ -5141,6 +5151,7 @@ MonoBehaviour:
   isBriefPhrase: 0
   isStage2Phrase: 0
   matchingPhrase: {fileID: 46676098}
+  matchingAltPhrase: {fileID: 0}
   isCorrectPhrase: 0
   isSelected: 0
   playerCorrectlyMatched: 0
@@ -5409,13 +5420,11 @@ MonoBehaviour:
   isBriefPhrase: 0
   isStage2Phrase: 0
   matchingPhrase: {fileID: 0}
+  matchingAltPhrase: {fileID: 0}
   isCorrectPhrase: 0
   isSelected: 0
   playerCorrectlyMatched: 0
-  conflictingPhrases:
-  - {fileID: 1311801187}
-  - {fileID: 204225324}
-  - {fileID: 0}
+  conflictingPhrases: []
   correctPhrase: {fileID: 0}
 --- !u!114 &1356258292
 MonoBehaviour:
@@ -5628,6 +5637,83 @@ MonoBehaviour:
 
     She
     said ''You''re movin'' with your auntie and uncle in Bel Air'''
+--- !u!1 &1452233270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1452233271}
+  - component: {fileID: 1452233273}
+  - component: {fileID: 1452233272}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1452233271
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452233270}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1.097586, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1725468195}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1452233272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452233270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Finish
+--- !u!222 &1452233273
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452233270}
+  m_CullTransparentMesh: 0
 --- !u!1 &1520667389
 GameObject:
   m_ObjectHideFlags: 0
@@ -6000,6 +6086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offscreenPos: {x: 0, y: 0}
+  background: {fileID: 0}
   inspecting: 0
   matchablePhrases: []
   briefPhrases: []
@@ -6359,6 +6446,135 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1724160354}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1725468194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1725468195}
+  - component: {fileID: 1725468198}
+  - component: {fileID: 1725468197}
+  - component: {fileID: 1725468196}
+  m_Layer: 5
+  m_Name: Button go to stage 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1725468195
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725468194}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1452233271}
+  m_Father: {fileID: 1161972540}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1, y: -139.27}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1725468196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725468194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1725468197}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1089496854}
+        m_MethodName: Stage2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1725468197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725468194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.51366144, g: 0.9150943, b: 0.55646, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1725468198
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725468194}
+  m_CullTransparentMesh: 0
 --- !u!1 &1733648389
 GameObject:
   m_ObjectHideFlags: 0
@@ -6461,6 +6677,7 @@ MonoBehaviour:
   isBriefPhrase: 0
   isStage2Phrase: 0
   matchingPhrase: {fileID: 0}
+  matchingAltPhrase: {fileID: 0}
   isCorrectPhrase: 0
   isSelected: 0
   playerCorrectlyMatched: 0
@@ -6597,6 +6814,7 @@ MonoBehaviour:
   isBriefPhrase: 0
   isStage2Phrase: 0
   matchingPhrase: {fileID: 1222489494}
+  matchingAltPhrase: {fileID: 0}
   isCorrectPhrase: 0
   isSelected: 0
   playerCorrectlyMatched: 0
@@ -6778,6 +6996,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offscreenPos: {x: 0, y: 0}
+  background: {fileID: 0}
   inspecting: 0
   matchablePhrases:
   - {fileID: 229404461}
@@ -7222,13 +7441,11 @@ MonoBehaviour:
   isBriefPhrase: 0
   isStage2Phrase: 0
   matchingPhrase: {fileID: 0}
+  matchingAltPhrase: {fileID: 0}
   isCorrectPhrase: 0
   isSelected: 0
   playerCorrectlyMatched: 0
-  conflictingPhrases:
-  - {fileID: 1311801187}
-  - {fileID: 204225324}
-  - {fileID: 0}
+  conflictingPhrases: []
   correctPhrase: {fileID: 0}
 --- !u!114 &1998454997
 MonoBehaviour:

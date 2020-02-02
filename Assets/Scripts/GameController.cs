@@ -7,6 +7,8 @@ using DG.Tweening;
 
 public class GameController : MonoBehaviour
 {
+    public Transform finishBUtton;
+
     [Serializable]
     public class CutsceneSubtitle
     {
@@ -253,6 +255,11 @@ public class GameController : MonoBehaviour
     {
         supervisor.transform.DOLocalMove(supervisor.transform.localPosition + Vector3.right * 200f, 0.5f);
         manuscript.transform.DOLocalMove(manuscript.transform.localPosition + Vector3.left * 500f, 0.5f);
+        GameObject.Find("FinalReport").SetActive(false);
+        GameObject.Find("Doc1- Transcript").SetActive(false);
+        GameObject.Find("Doc 2 - Journal").SetActive(false);
+        GameObject.Find("Stage2 Submit Button").SetActive(false);
+        
 
         Action endGame = () =>
         {
@@ -415,9 +422,7 @@ public class GameController : MonoBehaviour
         if (docStage == 3) // No more new docs! time for Stage 2
         {
             activeDocument.HideDoc();
-            finalReport.DOAnchorPos(Vector3.zero, 0.5f).SetDelay(1f);
-            finalReport.transform.DOScale(Vector3.one, 0.5f).SetDelay(1f);
-            DOVirtual.DelayedCall(1.5f, Stage2);
+            Stage2();
             return;
         }
 
@@ -445,6 +450,10 @@ public class GameController : MonoBehaviour
                     altDocument.ResetPhrases(true);
                     altDocument.clickCallback = SwapDocuments;
                 });
+
+
+                finishBUtton.gameObject.SetActive(true);
+                finishBUtton.SetAsLastSibling();
             }
             else
             {
@@ -489,11 +498,17 @@ public class GameController : MonoBehaviour
     }
 
 
-    void Stage2() // 2nd phase of the game where the player picks the 'true' statement for each section
+    public void Stage2() // 2nd phase of the game where the player picks the 'true' statement for each section
     {
-        gameStage = 2;
+        finishBUtton.gameObject.SetActive(false);
+        manuscript.gameObject.SetActive(false);
+        activeDocument.HideDoc();
+                gameStage = 2;
         print("Stage 2 now");
-        stage2phraseCanvas.gameObject.SetActive(true);
+        //  stage2phraseCanvas.gameObject.SetActive(true);
+        finalReport.DOAnchorPos(Vector3.zero, 0.5f).SetDelay(1f);
+        finalReport.transform.DOScale(Vector3.one, 0.5f).SetDelay(1f);
+        DOVirtual.DelayedCall(1.5f, Stage2);
         stage2Button.SetActive(true);
     }
 
