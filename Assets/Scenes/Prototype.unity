@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBriefPhrase: 0
-  matchingPhrase: {fileID: 1222489494}
+  matchingPhrase: {fileID: 1998454996}
   isCorrectPhrase: 0
   isSelected: 0
   playerCorrectlyMatched: 0
@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 46676099}
   - component: {fileID: 46676098}
   m_Layer: 5
-  m_Name: News Para 2
+  m_Name: News Para 2 (accepted bribe)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1252,7 +1252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBriefPhrase: 0
-  matchingPhrase: {fileID: 1222489494}
+  matchingPhrase: {fileID: 886726431}
   isCorrectPhrase: 1
   isSelected: 0
   playerCorrectlyMatched: 0
@@ -1388,7 +1388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 157.45, y: -282.67917}
+  m_AnchoredPosition: {x: 157.45, y: -283.2601}
   m_SizeDelta: {x: 118.7, y: 14.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &346481931
@@ -2074,7 +2074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBriefPhrase: 0
-  matchingPhrase: {fileID: 1222489494}
+  matchingPhrase: {fileID: 0}
   isCorrectPhrase: 0
   isSelected: 0
   playerCorrectlyMatched: 0
@@ -2562,7 +2562,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 157.45, y: -56.668453}
+  m_AnchoredPosition: {x: 157.45, y: -56.751442}
   m_SizeDelta: {x: 118.7, y: 14.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &678617630
@@ -3065,7 +3065,7 @@ GameObject:
   - component: {fileID: 886726432}
   - component: {fileID: 886726431}
   m_Layer: 5
-  m_Name: News Para 3
+  m_Name: News Para 3 (police checkpoint)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3307,7 +3307,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 157.45, y: -358.01608}
+  m_AnchoredPosition: {x: 157.45, y: -358.763}
   m_SizeDelta: {x: 118.7, y: 14.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &909001716
@@ -4201,7 +4201,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 157.45, y: -132.00536}
+  m_AnchoredPosition: {x: 157.45, y: -132.25432}
   m_SizeDelta: {x: 118.7, y: 14.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1129661476
@@ -4847,7 +4847,7 @@ GameObject:
   - component: {fileID: 1222489492}
   - component: {fileID: 1222489494}
   m_Layer: 5
-  m_Name: News Para 1
+  m_Name: News Para 1 (doctor donated)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5066,7 +5066,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBriefPhrase: 0
-  matchingPhrase: {fileID: 1222489494}
+  matchingPhrase: {fileID: 46676098}
   isCorrectPhrase: 0
   isSelected: 0
   playerCorrectlyMatched: 0
@@ -5295,7 +5295,7 @@ GameObject:
   - component: {fileID: 1356258292}
   - component: {fileID: 1356258291}
   m_Layer: 5
-  m_Name: News Para 4
+  m_Name: News Para 4 (court hearing)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6294,7 +6294,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 157.45, y: -207.34227}
+  m_AnchoredPosition: {x: 157.45, y: -207.7572}
   m_SizeDelta: {x: 118.7, y: 14.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1827504860
@@ -6929,7 +6929,7 @@ GameObject:
   - component: {fileID: 1998454997}
   - component: {fileID: 1998454996}
   m_Layer: 5
-  m_Name: News Para 5
+  m_Name: News Para 5 (no comment)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
